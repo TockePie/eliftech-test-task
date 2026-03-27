@@ -1,6 +1,7 @@
-import { Order } from 'src/orders/order.entity'
-import { Product } from 'src/products/products.entity'
 import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+
+import { Order } from '../orders/order.entity'
+import { Product } from '../products/product.entity'
 
 export class OrderItems {
   @PrimaryGeneratedColumn('uuid')

@@ -1,4 +1,3 @@
-import { OrderItems } from 'src/order-items/order-items.entity'
 import {
   Column,
   Entity,
@@ -8,7 +7,8 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm'
 
-import { Shop } from '../shops/shops.entity'
+import { OrderItems } from '../order-items/order-items.entity'
+import { Shop } from '../shops/shop.entity'
 
 @Entity()
 export class Product {
