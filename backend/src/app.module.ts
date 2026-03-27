@@ -3,6 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { EnvironmentVariables } from '../types/env'
+import { OrderItem } from './order-items/order-item.entity'
+import { Order } from './orders/order.entity'
+import { Product } from './products/product.entity'
+import { Shop } from './shops/shop.entity'
+import { ShopsModule } from './shops/shops.module'
 
 @Module({
   imports: [
@@ -12,11 +17,16 @@ import { EnvironmentVariables } from '../types/env'
       useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
         type: 'postgres',
         url: configService.get('DATABASE_URL', { infer: true }),
-        autoLoadEntities: true,
+        entities: [Shop, Product, Order, OrderItem],
         synchronize: true, // XXX: remove in production
-        ssl: true
+        ssl: true,
+        extra: {
+          max: 10,
+          ssl: { rejectUnauthorized: false }
+        }
       })
-    })
+    }),
+    ShopsModule
   ]
 })
 export class AppModule {}
