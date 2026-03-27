@@ -15,7 +15,7 @@ export default function LinkItem({ href, children }: Props) {
     <Link
       href={href}
       className={
-        pathname === href ? 'font-bold text-blue-600' : 'text-gray-600'
+        pathname === href ? 'font-bold text-orange-600' : 'text-gray-600'
       }
     >
       {children}
