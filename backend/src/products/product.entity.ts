@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm'
 
-import { OrderItems } from '../order-items/order-items.entity'
+import { OrderItem } from '../order-items/order-item.entity'
 import { Shop } from '../shops/shop.entity'
 
 @Entity()
@@ -22,8 +22,8 @@ export class Product {
   @Column()
   shopId: string
 
-  @OneToMany(() => OrderItems, (item) => item.order)
-  orderItems: OrderItems[]
+  @OneToMany(() => OrderItem, (item) => item.product)
+  orderItems: OrderItem[]
 
   @Column()
   name: string
@@ -31,6 +31,6 @@ export class Product {
   @Column()
   imageUrl: string
 
-  @Column(() => Number)
+  @Column('decimal', { precision: 10, scale: 2 })
   price: number
 }

@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { OrderItems } from '../order-items/order-items.entity'
+import { OrderItem } from '../order-items/order-item.entity'
 
 @Entity()
 export class Order {
@@ -19,9 +19,9 @@ export class Order {
   @Column()
   address: string
 
-  @Column(() => Number)
+  @Column('decimal', { precision: 10, scale: 2 })
   totalPrice: number
 
-  @OneToMany(() => OrderItems, (item) => item.order)
-  orderItems: OrderItems[]
+  @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
+  orderItem: OrderItem[]
 }

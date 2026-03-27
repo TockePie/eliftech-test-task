@@ -1,20 +1,27 @@
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from 'typeorm'
 
 import { Order } from '../orders/order.entity'
 import { Product } from '../products/product.entity'
 
-export class OrderItems {
+@Entity()
+export class OrderItem {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(() => Order, (order) => order.orderItems)
+  @ManyToOne(() => Order, (order) => order.orderItem)
   @JoinColumn({ name: 'orderId' })
   order: Order
 
   @Column()
   orderId: string
 
-  @ManyToOne(() => Product, (product) => product.orderItems)
+  @ManyToOne(() => Product)
   @JoinColumn({ name: 'productId' })
   product: Product
 
