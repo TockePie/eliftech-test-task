@@ -16,7 +16,7 @@ export default function ShopsSidebar({ shops, activeShop }: Props) {
         Shops
       </h3>
 
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1 p-2">
         <nav className="space-y-3">
           {shops.map((item) => (
             <Link

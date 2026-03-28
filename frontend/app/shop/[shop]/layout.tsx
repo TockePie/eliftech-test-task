@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 import ShopsSidebar from '@/components/ShopsSidebar'
+import { getShops } from '@/lib/get-shops'
 
 interface Props extends PropsWithChildren {
   params: Promise<{ shop: string }>
@@ -8,15 +9,13 @@ interface Props extends PropsWithChildren {
 
 export default async function ShopLayout({ children, params }: Props) {
   const { shop } = await params
-
-  const response = await fetch(process.env.API_URL + '/shops')
-  const shops = await response.json()
+  const shops = await getShops()
 
   return (
-    <div className="m-4 flex h-[85vh]">
+    <div className="m-4 flex h-[85vh] gap-5">
       <ShopsSidebar shops={shops} activeShop={shop} />
 
-      <main className="flex-1 overflow-y-auto">{children}</main>
+      <main className="h-full flex-1">{children}</main>
     </div>
   )
 }
