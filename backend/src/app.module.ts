@@ -6,6 +6,7 @@ import { EnvironmentVariables } from '../types/env'
 import { OrderItem } from './order-items/order-item.entity'
 import { Order } from './orders/order.entity'
 import { Product } from './products/product.entity'
+import { ProductsModule } from './products/products.module'
 import { Shop } from './shops/shop.entity'
 import { ShopsModule } from './shops/shops.module'
 
@@ -26,7 +27,8 @@ import { ShopsModule } from './shops/shops.module'
         }
       })
     }),
-    ShopsModule
+    ShopsModule,
+    ProductsModule
   ]
 })
 export class AppModule {}
