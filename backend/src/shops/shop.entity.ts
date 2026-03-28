@@ -15,4 +15,7 @@ export class Shop {
 
   @OneToMany(() => Product, (product) => product.shop)
   products: Product[]
+
+  @Column('decimal', { precision: 2, scale: 1, default: 0 })
+  rating: number
 }

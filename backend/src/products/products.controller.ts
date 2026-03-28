@@ -7,8 +7,24 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  async getProducts(@Query('shopId') shopId?: string) {
-    return await this.productsService.findAll(shopId)
+  async getProducts(
+    @Query('shopId') shopId?: string,
+    @Query('category') category?: string | string[],
+    @Query('sortBy') sortBy?: 'price' | 'name',
+    @Query('sortOrder') sortOrder?: 'ASC' | 'DESC'
+  ) {
+    const categories = Array.isArray(category)
+      ? category
+      : category
+        ? [category]
+        : undefined
+
+    return await this.productsService.findAll(
+      shopId,
+      categories,
+      sortBy,
+      sortOrder
+    )
   }
 
   @Get(':id')
