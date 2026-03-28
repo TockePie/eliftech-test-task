@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm'
 
-import { OrderItem } from '../order-items/order-item.entity'
+import { OrderItem } from '../orders/order-item.entity'
 import { Shop } from '../shops/shop.entity'
 
 @Entity()

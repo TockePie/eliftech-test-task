@@ -3,8 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { EnvironmentVariables } from '../types/env'
-import { OrderItem } from './order-items/order-item.entity'
 import { Order } from './orders/order.entity'
+import { OrderItem } from './orders/order-item.entity'
+import { OrdersModule } from './orders/orders.module'
 import { Product } from './products/product.entity'
 import { ProductsModule } from './products/products.module'
 import { Shop } from './shops/shop.entity'
@@ -28,7 +29,8 @@ import { ShopsModule } from './shops/shops.module'
       })
     }),
     ShopsModule,
-    ProductsModule
+    ProductsModule,
+    OrdersModule
   ]
 })
 export class AppModule {}
