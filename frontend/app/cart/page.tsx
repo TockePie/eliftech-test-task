@@ -6,11 +6,10 @@ import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { createOrderAction } from '@/app/actions'
+import FormInput from '@/components/Cart/FormInput'
+import ProductItem from '@/components/Cart/ProductItem'
 import { useCartStore } from '@/store/useCartStore'
 import { OrderEntity, OrderEntityType } from '@/types/order'
-
-import { FormInput } from './form-input'
-import ProductItem from './product-item'
 
 export default function CartPage() {
   const { cart, getTotalPrice, updateQuantity, clearCart } = useCartStore()
@@ -55,14 +54,12 @@ export default function CartPage() {
         className="m-4 grid h-full grid-cols-1 gap-5 lg:grid-cols-2"
       >
         <div className="space-y-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-900">
-            Оформлення замовлення
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-900">Your information</h2>
 
           <div className="space-y-4">
             <FormInput
-              label="Ім'я"
-              placeholder="Максим"
+              label="Name"
+              placeholder="John Doe"
               {...register('name')}
               error={errors.name?.message ? [errors.name.message] : undefined}
             />
@@ -74,15 +71,15 @@ export default function CartPage() {
               error={errors.email?.message ? [errors.email.message] : undefined}
             />
             <FormInput
-              label="Телефон"
+              label="Phone"
               type="tel"
               placeholder="380..."
               {...register('phone')}
               error={errors.phone?.message ? [errors.phone.message] : undefined}
             />
             <FormInput
-              label="Адреса"
-              placeholder="Вулиця, буд..."
+              label="Address"
+              placeholder="Example st., 48, Kyiv"
               {...register('address')}
               error={
                 errors.address?.message ? [errors.address.message] : undefined
@@ -92,9 +89,7 @@ export default function CartPage() {
         </div>
 
         <div className="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 shadow-lg">
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">
-            Ваше замовлення
-          </h2>
+          <h2 className="mb-6 text-2xl font-bold text-gray-900">Your order</h2>
 
           <div className="custom-scrollbar flex-1 space-y-4 overflow-y-auto pr-2">
             {cart.map((item) => (
@@ -115,9 +110,9 @@ export default function CartPage() {
             ))}
           </div>
 
-          <div className="mt-6 border-t border-t-gray-200 pt-4">
+          <div className="mt-2 border-t border-t-gray-200 pt-4">
             <div className="mb-6 flex justify-between text-2xl font-black">
-              <span>Разом:</span>
+              <span>Total:</span>
               <span>{getTotalPrice().toFixed(2)} ₴</span>
             </div>
 
@@ -126,7 +121,7 @@ export default function CartPage() {
               disabled={isPending}
               className="w-full rounded-2xl bg-orange-500 py-4 font-bold text-white transition-colors hover:bg-orange-600 disabled:bg-gray-300"
             >
-              {isPending ? 'Надсилаємо...' : 'Підтвердити замовлення'}
+              {isPending ? 'Sending...' : 'Confirm order'}
             </button>
           </div>
         </div>

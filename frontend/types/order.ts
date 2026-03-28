@@ -13,6 +13,6 @@ export const OrderEntity = z.object({
     .regex(/^\d+$/, 'Phone number should contain only numbers')
     .min(10, 'Phone number is too short'),
   address: z.string().min(5, 'Enter your full address'),
-  items: z.array(OrderItemEntity).min(1, 'Кошик порожній')
+  items: z.array(OrderItemEntity).min(1, 'Cart is empty')
 })
 export type OrderEntityType = z.infer<typeof OrderEntity>

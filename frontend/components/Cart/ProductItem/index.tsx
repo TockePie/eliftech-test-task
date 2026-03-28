@@ -13,11 +13,12 @@ export default function ProductItem({ item, onChangeFn }: Props) {
 
   return (
     <div className="flex gap-4 rounded-2xl border border-gray-50 bg-gray-50/50 p-4">
-      <div className="relative h-20 w-20 shrink-0">
+      <div className="relative size-20 shrink-0">
         <Image
           src={item.imageUrl}
           alt={item.name}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="rounded-xl object-cover"
         />
       </div>
@@ -27,7 +28,7 @@ export default function ProductItem({ item, onChangeFn }: Props) {
           <button
             type="button"
             onClick={() => removeFromCart(item.id)}
-            className="text-gray-400 transition-colors hover:text-red-500"
+            className="size-8 cursor-pointer rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500"
           >
             ✕
           </button>

@@ -22,34 +22,48 @@ export const useCartStore = create<CartState>()(
       cart: [],
 
       addToCart: (product) => {
-        const { cart, updateQuantity } = get()
+        const { cart } = get()
 
-        const existingItem = cart.find((item) => item.id === product.id)
-        if (existingItem) {
-          updateQuantity(existingItem.id, existingItem.quantity)
-        } else {
-          set({ cart: [...cart, { ...product, quantity: 1 }] })
+        const existingItemIndex = cart.findIndex(
+          (item) => item.id === product.id
+        )
+
+        if (existingItemIndex > -1) {
+          const newCart = [...cart]
+          newCart[existingItemIndex] = {
+            ...newCart[existingItemIndex],
+            quantity: newCart[existingItemIndex].quantity + 1
+          }
+
+          set({ cart: newCart })
+          return
         }
+
+        set({ cart: [...cart, { ...product, quantity: 1 }] })
       },
 
       updateQuantity: (productId, quantity) => {
-        set({
-          cart: get().cart.map((item) =>
+        set((state) => ({
+          cart: state.cart.map((item) =>
             item.id === productId
               ? { ...item, quantity: Math.max(1, quantity) }
               : item
           )
-        })
+        }))
       },
 
       removeFromCart: (productId) => {
-        set({ cart: get().cart.filter((item) => item.id !== productId) })
+        set((state) => ({
+          cart: state.cart.filter((item) => item.id !== productId)
+        }))
       },
 
       clearCart: () => set({ cart: [] }),
 
       getTotalPrice: () => {
-        return get().cart.reduce(
+        const { cart } = get()
+
+        return cart.reduce(
           (sum, item) => sum + Number(item.price) * item.quantity,
           0
         )
