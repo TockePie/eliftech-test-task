@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-export default function HomePage() {
+export default function ShopPage() {
   redirect('/shop/mcdonny')
 
   return null

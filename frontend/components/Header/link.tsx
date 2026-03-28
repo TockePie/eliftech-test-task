@@ -10,12 +10,13 @@ interface Props extends PropsWithChildren {
 
 export default function LinkItem({ href, children }: Props) {
   const pathname = usePathname()
+  const currentPath = `/${pathname.split('/')[1]}`
 
   return (
     <Link
       href={href}
       className={
-        pathname === href ? 'font-bold text-orange-600' : 'text-gray-600'
+        currentPath === href ? 'font-bold text-orange-600' : 'text-gray-600'
       }
     >
       {children}
