@@ -3,7 +3,7 @@
 import { useCartStore } from '@/store/useCartStore'
 import { Product } from '@/types/product'
 
-import Button from '../Button'
+import { Button } from '../Button'
 
 export default function AddToCartBtn({ product }: { product: Product }) {
   const { cart, addToCart } = useCartStore()
@@ -16,22 +16,9 @@ export default function AddToCartBtn({ product }: { product: Product }) {
     }
   }
 
-  if (isInCart) {
-    return (
-      <Button
-        size="md"
-        variant="green-secondary"
-        disabled
-        className="mt-4 cursor-not-allowed"
-      >
-        In Cart
-      </Button>
-    )
-  }
-
   return (
     <Button
-      variant="primary"
+      variant={isInCart ? 'green-secondary' : 'primary'}
       size="md"
       className="mt-4"
       onClick={handleAddToCart}

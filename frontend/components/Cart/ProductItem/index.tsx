@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { ChangeEvent } from 'react'
 
+import { Button } from '@/components/Button'
 import { CartItem } from '@/store/useCartStore'
 
 interface Props {
@@ -24,13 +25,14 @@ export default function ProductItem({ item, onChangeFn, removeFn }: Props) {
       <div className="flex flex-1 flex-col justify-between">
         <div className="flex items-start justify-between">
           <h3 className="font-bold text-gray-900">{item.name}</h3>
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="icon"
+            fullWidth={false}
             onClick={removeFn}
-            className="size-8 cursor-pointer rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500"
           >
             ✕
-          </button>
+          </Button>
         </div>
         <div className="flex items-center justify-between">
           <span className="font-bold text-orange-600">{item.price} ₴</span>

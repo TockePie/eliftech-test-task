@@ -6,7 +6,7 @@ import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { createOrderAction } from '@/app/actions'
-import Button from '@/components/Button'
+import { Button } from '@/components/Button'
 import FormInput from '@/components/Cart/FormInput'
 import ProductItem from '@/components/Cart/ProductItem'
 import { useCartStore } from '@/store/useCartStore'

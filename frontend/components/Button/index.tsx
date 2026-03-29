@@ -1,42 +1,56 @@
-import { PropsWithChildren } from 'react'
+import { cva, VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/cn'
 
-interface Props
-  extends PropsWithChildren, React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: 'primary' | 'green-secondary' | 'outline' | 'secondary'
-  size: 'default' | 'md'
-}
+export const buttonVariants = cva(
+  'inline-flex items-center justify-center whitespace-nowrap rounded-2xl font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-orange-500 text-white hover:bg-orange-600',
+        'green-secondary': 'bg-green-100 text-green-700',
+        outline:
+          'border border-orange-500 bg-orange-50 text-orange-600 hover:bg-orange-100',
+        secondary:
+          'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-transparent hover:border-gray-200',
+        ghost:
+          'bg-transparent hover:bg-gray-100 text-gray-400 hover:text-red-500'
+      },
+      size: {
+        default: 'h-12 px-8',
+        md: 'h-10 px-4 text-sm',
+        sm: 'h-8 px-3 text-xs',
+        icon: 'size-8 rounded-lg'
+      },
+      fullWidth: {
+        true: 'w-full',
+        false: 'w-fit'
+      }
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'default',
+      fullWidth: true
+    }
+  }
+)
 
-export const STYLES: Record<Props['variant'] | Props['size'], string> = {
-  primary: 'bg-orange-500 hover:bg-orange-600 text-white disabled:bg-gray-300',
-  'green-secondary': 'bg-green-100 text-green-700',
-  outline:
-    'border-orange-500 bg-orange-50 text-orange-600 ring-1 ring-orange-500',
-  secondary:
-    'border-transparent bg-gray-50 text-gray-600 hover:border-gray-200 hover:bg-gray-100',
-  default: 'py-4',
-  md: 'py-2'
-}
+interface ButtonProps
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {}
 
-export default function Button({
-  variant = 'primary',
-  size = 'default',
-  children,
+export const Button = ({
   className,
+  variant,
+  size,
+  fullWidth,
   ...props
-}: Props) {
+}: ButtonProps) => {
   return (
     <button
-      className={cn(
-        'w-full cursor-pointer rounded-2xl font-bold transition-all duration-200',
-        STYLES[variant],
-        STYLES[size],
-        className
-      )}
+      className={cn(buttonVariants({ variant, size, fullWidth, className }))}
       {...props}
-    >
-      {children}
-    </button>
+    />
   )
 }

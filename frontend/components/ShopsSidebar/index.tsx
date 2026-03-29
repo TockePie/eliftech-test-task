@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/cn'
 import { Shop } from '@/types/shop'
 
-import { STYLES } from '../Button'
+import { buttonVariants } from '../Button'
 import ScrollArea from '../ScrollArea'
 
 interface Props {
@@ -20,20 +20,26 @@ export default function ShopsSidebar({ shops, activeShop }: Props) {
 
       <ScrollArea className="flex-1 p-2">
         <nav className="space-y-3">
-          {shops.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              className={cn(
-                'flex items-center justify-center rounded-2xl border-2 px-4 py-7 text-lg font-semibold',
-                activeShop === item.href
-                  ? STYLES['outline']
-                  : STYLES['secondary']
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {shops.map((item) => {
+            const isActive = activeShop === item.href
+
+            return (
+              <Link
+                key={item.id}
+                href={item.href}
+                className={cn(
+                  buttonVariants({
+                    variant: isActive ? 'outline' : 'secondary',
+                    size: 'default',
+                    fullWidth: true,
+                    className: 'h-20 border-2'
+                  })
+                )}
+              >
+                {item.name}
+              </Link>
+            )
+          })}
         </nav>
       </ScrollArea>
     </aside>
