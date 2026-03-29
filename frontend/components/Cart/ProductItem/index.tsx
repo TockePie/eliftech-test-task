@@ -1,16 +1,15 @@
 import Image from 'next/image'
 import { ChangeEvent } from 'react'
 
-import { CartItem, useCartStore } from '@/store/useCartStore'
+import { CartItem } from '@/store/useCartStore'
 
 interface Props {
   item: CartItem
   onChangeFn: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void
+  removeFn: () => void
 }
 
-export default function ProductItem({ item, onChangeFn }: Props) {
-  const { removeFromCart } = useCartStore()
-
+export default function ProductItem({ item, onChangeFn, removeFn }: Props) {
   return (
     <div className="flex gap-4 rounded-2xl border border-gray-50 bg-gray-50/50 p-4">
       <div className="relative size-20 shrink-0">
@@ -27,7 +26,7 @@ export default function ProductItem({ item, onChangeFn }: Props) {
           <h3 className="font-bold text-gray-900">{item.name}</h3>
           <button
             type="button"
-            onClick={() => removeFromCart(item.id)}
+            onClick={removeFn}
             className="size-8 cursor-pointer rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500"
           >
             ✕

@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
+import { cn } from '@/lib/cn'
 import { Shop } from '@/types/shop'
 
+import { STYLES } from '../Button'
 import ScrollArea from '../ScrollArea'
 
 interface Props {
@@ -22,11 +24,12 @@ export default function ShopsSidebar({ shops, activeShop }: Props) {
             <Link
               key={item.id}
               href={item.href}
-              className={`flex h-20 items-center justify-center rounded-2xl border-2 px-4 text-lg font-semibold transition-all duration-200 ${
+              className={cn(
+                'flex items-center justify-center rounded-2xl border-2 px-4 py-7 text-lg font-semibold',
                 activeShop === item.href
-                  ? 'border-orange-500 bg-orange-50 text-orange-600 shadow-md ring-1 ring-orange-500'
-                  : 'border-transparent bg-gray-50 text-gray-600 hover:border-gray-200 hover:bg-gray-100'
-              } `}
+                  ? STYLES['outline']
+                  : STYLES['secondary']
+              )}
             >
               {item.name}
             </Link>

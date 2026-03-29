@@ -6,13 +6,15 @@ import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { createOrderAction } from '@/app/actions'
+import Button from '@/components/Button'
 import FormInput from '@/components/Cart/FormInput'
 import ProductItem from '@/components/Cart/ProductItem'
 import { useCartStore } from '@/store/useCartStore'
 import { OrderEntity, OrderEntityType } from '@/types/order'
 
 export default function CartPage() {
-  const { cart, getTotalPrice, updateQuantity, clearCart } = useCartStore()
+  const { cart, getTotalPrice, updateQuantity, clearCart, removeFromCart } =
+    useCartStore()
   const [isPending, startTransition] = useTransition()
 
   const {
@@ -106,6 +108,7 @@ export default function CartPage() {
                     ) as any
                   )
                 }}
+                removeFn={() => removeFromCart(item.id)}
               />
             ))}
           </div>
@@ -116,13 +119,14 @@ export default function CartPage() {
               <span>{getTotalPrice().toFixed(2)} ₴</span>
             </div>
 
-            <button
+            <Button
+              size="default"
+              variant="primary"
               type="submit"
               disabled={isPending}
-              className="w-full rounded-2xl bg-orange-500 py-4 font-bold text-white transition-colors hover:bg-orange-600 disabled:bg-gray-300"
             >
               {isPending ? 'Sending...' : 'Confirm order'}
-            </button>
+            </Button>
           </div>
         </div>
       </form>

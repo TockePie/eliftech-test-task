@@ -1,3 +1,5 @@
+import { cn } from '@/lib/cn'
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
   error?: string[]
@@ -16,11 +18,13 @@ export default function FormInput({
       </label>
       <input
         {...props}
-        className={`w-full rounded-xl border bg-gray-50 p-3 transition-all outline-none ${
+        className={cn(
+          'w-full rounded-xl border bg-gray-50 p-3 transition-all outline-none',
           error
             ? 'border-red-500 ring-1 ring-red-200'
-            : 'border-gray-200 focus:border-orange-500'
-        } ${className}`}
+            : 'border-gray-200 focus:border-orange-500',
+          className
+        )}
       />
 
       {error && (
