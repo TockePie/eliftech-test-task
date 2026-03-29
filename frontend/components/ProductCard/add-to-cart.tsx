@@ -23,7 +23,7 @@ export default function AddToCartBtn({ product }: { product: Product }) {
       className="mt-4"
       onClick={handleAddToCart}
     >
-      Add to Cart
+      {isInCart ? 'Added' : 'Add to Cart'}
     </Button>
   )
 }
