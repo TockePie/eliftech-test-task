@@ -2,6 +2,8 @@
 
 This repository contains a full-stack food delivery application built for the ElifTech IT School. It has a monorepo containing a Next.js frontend and a NestJS backend.
 
+Demo: <https://eliftech-test-task-tockepie-web.vercel.app/>
+
 ## Accomplished Level
 
 Level: **Middle**
