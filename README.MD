@@ -50,6 +50,12 @@ DATABASE_URL=postgres://[user]:[password]@[neon-hostname]/neondb?channel_binding
 PORT=4000
 ```
 
+And the same file in the `frontend`
+
+```env
+API_URL="https://example.com"
+```
+
 ## Development Mode
 
 **Start Backend:**
