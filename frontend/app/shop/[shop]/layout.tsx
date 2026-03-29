@@ -12,7 +12,7 @@ export default async function ShopLayout({ children, params }: Props) {
   const shops = await getShops()
 
   return (
-    <div className="m-4 flex h-[85vh] gap-5">
+    <div className="m-4 flex min-h-[85vh] flex-col gap-5 lg:h-[85vh] lg:flex-row">
       <ShopsSidebar shops={shops} activeShop={shop} />
 
       <main className="h-full flex-1">{children}</main>

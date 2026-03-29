@@ -33,7 +33,7 @@ export default function ShopsSidebar({ shops, activeShop }: Props) {
   }, [shops, filterRange])
 
   return (
-    <aside className="flex h-full min-h-fit w-72 flex-col gap-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-lg">
+    <aside className="flex h-auto w-full flex-col gap-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-lg lg:h-full lg:w-72">
       <div className="space-y-4">
         <h3 className="px-2 text-2xl font-extrabold tracking-tight text-gray-900">
           Shops

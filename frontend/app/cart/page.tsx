@@ -50,7 +50,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container mx-auto h-[85vh]">
+    <div className="container mx-auto lg:h-[85vh]">
       <form
         onSubmit={handleSubmit(onOrderSubmit)}
         className="m-4 grid h-full grid-cols-1 gap-5 lg:grid-cols-2"
