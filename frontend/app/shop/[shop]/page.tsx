@@ -1,3 +1,4 @@
+import ActiveFilters from '@/components/ActiveFilters'
 import FilterModal from '@/components/FilterModal'
 import ProductCard from '@/components/ProductCard'
 import ScrollArea from '@/components/ScrollArea'
@@ -18,8 +19,9 @@ export default async function ShopPage({ params, searchParams }: Props) {
 
   const shops = await getShops()
   const currentShop = shops.find((s) => s.href === slug)
-  if (!currentShop)
+  if (!currentShop) {
     return <div className="p-10 text-center">Shop not found</div>
+  }
 
   const allProducts = await getProducts(currentShop.id)
 
@@ -46,6 +48,8 @@ export default async function ShopPage({ params, searchParams }: Props) {
 
           <FilterModal categories={categories} />
         </div>
+
+        <ActiveFilters />
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {displayProducts.map((product) => (

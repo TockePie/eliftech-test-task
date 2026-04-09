@@ -9,6 +9,8 @@ export const buttonVariants = cva(
       variant: {
         primary: 'bg-orange-500 text-white hover:bg-orange-600',
         'green-secondary': 'bg-green-100 text-green-700',
+        'orange-secondary': 'bg-orange-100 text-orange-700 hover:bg-orange-200',
+        'blue-secondary': 'bg-blue-100 text-blue-700 hover:bg-blue-200',
         outline:
           'border border-orange-500 bg-orange-50 text-orange-600 hover:bg-orange-100',
         secondary:
