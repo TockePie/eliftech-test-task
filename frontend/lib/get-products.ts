@@ -2,6 +2,8 @@ import { cache } from 'react'
 
 import { Product } from '@/types/product'
 
+import { env } from './env'
+
 export const getProducts = cache(
   async (
     shopId: string,
@@ -9,7 +11,7 @@ export const getProducts = cache(
     sortBy?: string,
     sortOrder?: string
   ): Promise<Product[]> => {
-    const url = new URL(`${process.env.API_URL}/products`)
+    const url = new URL(`${env.NEXT_PUBLIC_API_URL}/products`)
 
     url.searchParams.append('shopId', shopId)
 

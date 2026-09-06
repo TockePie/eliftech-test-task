@@ -2,8 +2,10 @@ import { cache } from 'react'
 
 import { Shop } from '@/types/shop'
 
+import { env } from './env'
+
 export const getShops = cache(async (): Promise<Shop[]> => {
-  const url = new URL(`${process.env.API_URL}/shops`)
+  const url = new URL(`${env.NEXT_PUBLIC_API_URL}/shops`)
 
   const response = await fetch(url.toString(), {
     next: { revalidate: 3600 }

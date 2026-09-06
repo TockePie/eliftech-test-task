@@ -4,7 +4,7 @@ import nextTs from 'eslint-config-next/typescript'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 
-const eslintConfig = defineConfig([
+export default defineConfig([
   ...nextVitals,
   ...nextTs,
   eslintConfigPrettier,
@@ -26,5 +26,3 @@ const eslintConfig = defineConfig([
     }
   }
 ])
-
-export default eslintConfig
