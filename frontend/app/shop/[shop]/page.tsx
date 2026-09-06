@@ -2,8 +2,8 @@ import ActiveFilters from '@/components/ActiveFilters'
 import FilterModal from '@/components/FilterModal'
 import ProductCard from '@/components/ProductCard'
 import ScrollArea from '@/components/ScrollArea'
-import { getProducts } from '@/lib/get-products'
-import { getShops } from '@/lib/get-shops'
+import { getProducts } from '@/api/get-products'
+import { getShops } from '@/api/get-shops'
 
 interface Props {
   params: Promise<{ shop: string }>

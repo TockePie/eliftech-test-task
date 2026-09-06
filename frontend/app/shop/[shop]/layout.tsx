@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 import ShopsSidebar from '@/components/ShopsSidebar'
-import { getShops } from '@/lib/get-shops'
+import { getShops } from '@/api/get-shops'
 
 interface Props extends PropsWithChildren {
   params: Promise<{ shop: string }>
