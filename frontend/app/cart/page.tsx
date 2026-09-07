@@ -1,45 +1,42 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTransition } from 'react'
-import { useForm } from 'react-hook-form'
+import { useActionState, useEffect } from 'react'
 
-import { createOrderAction } from '@/app/actions'
+import { createOrderAction, OrderActionState } from '@/api/create-order'
 import { Button } from '@/components/Button'
 import FormInput from '@/components/Cart/FormInput'
 import ProductItem from '@/components/Cart/ProductItem'
 import { useCartStore } from '@/store/useCartStore'
-import { OrderEntity, OrderEntityType } from '@/types/order'
+
+export const initialOrderState: OrderActionState = {}
 
 export default function CartPage() {
   const { cart, getTotalPrice, updateQuantity, clearCart, removeFromCart } =
     useCartStore()
-  const [isPending, startTransition] = useTransition()
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors }
-  } = useForm<OrderEntityType>({
-    resolver: zodResolver(OrderEntity),
-    defaultValues: {
-      items: cart.map((i) => ({ productId: i.id, quantity: i.quantity }))
-    }
-  })
+  const [state, formAction, isPending] = useActionState(
+    onSubmit,
+    initialOrderState
+  )
 
-  const onOrderSubmit = (data: OrderEntityType) => {
-    startTransition(async () => {
-      const result = await createOrderAction(data)
-      if (result.success) {
-        alert('Order created successfully')
-        clearCart()
-      } else {
-        alert(result.message)
-      }
-    })
+  async function onSubmit(prevState: OrderActionState, formData: FormData) {
+    const itemsPayload = cart.map((i) => ({
+      productId: i.id,
+      quantity: i.quantity
+    }))
+    formData.set('items', JSON.stringify(itemsPayload))
+
+    return await createOrderAction(prevState, formData)
   }
+
+  useEffect(() => {
+    if (state.success) {
+      alert('Order created successfully')
+      clearCart()
+    } else if (state.message) {
+      alert(state.message)
+    }
+  }, [state, clearCart])
 
   if (cart.length === 0) {
     return (
@@ -52,7 +49,7 @@ export default function CartPage() {
   return (
     <div className="container mx-auto lg:h-[85vh]">
       <form
-        onSubmit={handleSubmit(onOrderSubmit)}
+        action={formAction}
         className="m-4 grid h-full grid-cols-1 gap-5 lg:grid-cols-2"
       >
         <div className="space-y-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-lg">
@@ -61,31 +58,33 @@ export default function CartPage() {
           <div className="space-y-4">
             <FormInput
               label="Name"
+              name="name"
               placeholder="John Doe"
-              {...register('name')}
-              error={errors.name?.message ? [errors.name.message] : undefined}
+              required
+              error={state.errors?.name}
             />
             <FormInput
               label="Email"
+              name="email"
               type="email"
               placeholder="mail@example.com"
-              {...register('email')}
-              error={errors.email?.message ? [errors.email.message] : undefined}
+              required
+              error={state.errors?.email}
             />
             <FormInput
               label="Phone"
+              name="phone"
               type="tel"
               placeholder="380..."
-              {...register('phone')}
-              error={errors.phone?.message ? [errors.phone.message] : undefined}
+              required
+              error={state.errors?.phone}
             />
             <FormInput
               label="Address"
+              name="address"
               placeholder="Example st., 48, Kyiv"
-              {...register('address')}
-              error={
-                errors.address?.message ? [errors.address.message] : undefined
-              }
+              required
+              error={state.errors?.address}
             />
           </div>
         </div>
@@ -98,16 +97,9 @@ export default function CartPage() {
               <ProductItem
                 key={item.id}
                 item={item}
-                onChangeFn={(e) => {
-                  const val = parseInt(e.target.value)
-                  updateQuantity(item.id, val)
-                  setValue(
-                    'items',
-                    cart.map((i) =>
-                      i.id === item.id ? { ...i, quantity: val } : i
-                    ) as any
-                  )
-                }}
+                onChangeFn={(e) =>
+                  updateQuantity(item.id, parseInt(e.target.value, 10))
+                }
                 removeFn={() => removeFromCart(item.id)}
               />
             ))}

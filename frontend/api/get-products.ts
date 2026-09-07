@@ -10,7 +10,7 @@ export const getProducts = cache(
     categories?: string[],
     sortBy?: string,
     sortOrder?: string
-  ): Promise<Product[]> => {
+  ) => {
     const searchParams = new URLSearchParams()
 
     if (shopId) searchParams.set('shopId', String(shopId))
@@ -25,6 +25,6 @@ export const getProducts = cache(
       .get('/products', {
         searchParams
       })
-      .json()
+      .json<Product[]>()
   }
 )
