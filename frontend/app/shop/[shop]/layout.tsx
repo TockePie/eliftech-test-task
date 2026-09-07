@@ -1,15 +1,14 @@
 import { PropsWithChildren } from 'react'
 
-import ShopsSidebar from '@/components/ShopsSidebar'
 import { getShops } from '@/api/get-shops'
+import ShopsSidebar from '@/components/ShopsSidebar'
 
 interface Props extends PropsWithChildren {
   params: Promise<{ shop: string }>
 }
 
 export default async function ShopLayout({ children, params }: Props) {
-  const { shop } = await params
-  const shops = await getShops()
+  const [{ shop }, shops] = await Promise.all([params, getShops()])
 
   return (
     <div className="m-4 flex min-h-[85vh] flex-col gap-5 lg:h-[85vh] lg:flex-row">

@@ -3,7 +3,7 @@
 import { useCartStore } from '@/store/useCartStore'
 import { Product } from '@/types/product'
 
-import { Button } from '../Button'
+import { Button } from '../../Button'
 
 export default function AddToCartBtn({ product }: { product: Product }) {
   const { cart, addToCart } = useCartStore()
