@@ -6,12 +6,13 @@ import { createOrderAction, OrderActionState } from '@/api/create-order'
 import { Button } from '@/components/Button'
 import FormInput from '@/components/Cart/FormInput'
 import ProductItem from '@/components/Cart/ProductItem'
-import { useCartStore } from '@/store/useCartStore'
+import { useCartStore } from '@/store/use-cart-store'
 
 export const initialOrderState: OrderActionState = {}
 
 export default function CartPage() {
-  const { cart, getTotalPrice, updateQuantity, clearCart, removeFromCart } =
+  const cart = useCartStore((state) => state.cart)
+  const { getTotalPrice, updateQuantity, clearCart, removeFromCart } =
     useCartStore()
 
   const [state, formAction, isPending] = useActionState(

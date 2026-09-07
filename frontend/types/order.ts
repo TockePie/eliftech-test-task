@@ -17,4 +17,3 @@ export const OrderEntity = z.object({
   address: z.string().check(z.minLength(5, 'Enter your full address')),
   items: z.array(OrderItemEntity).check(z.minLength(1, 'Cart is empty'))
 })
-export type OrderEntityType = z.infer<typeof OrderEntity>
