@@ -1,4 +1,4 @@
-import z from 'zod'
+import { z } from 'zod/mini'
 
 export const OrderItemEntity = z.object({
   productId: z.uuid(),
@@ -6,13 +6,14 @@ export const OrderItemEntity = z.object({
 })
 
 export const OrderEntity = z.object({
-  name: z.string().min(2, 'Name is too short'),
+  name: z.string().check(z.minLength(2, 'Name is too short')),
   email: z.email('Email is incorrect'),
   phone: z
     .string()
-    .regex(/^\d+$/, 'Phone number should contain only numbers')
-    .min(10, 'Phone number is too short'),
-  address: z.string().min(5, 'Enter your full address'),
-  items: z.array(OrderItemEntity).min(1, 'Cart is empty')
+    .check(
+      z.regex(/^\d+$/, 'Phone number should contain only numbers'),
+      z.minLength(10, 'Phone number is too short')
+    ),
+  address: z.string().check(z.minLength(5, 'Enter your full address')),
+  items: z.array(OrderItemEntity).check(z.minLength(1, 'Cart is empty'))
 })
-export type OrderEntityType = z.infer<typeof OrderEntity>

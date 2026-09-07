@@ -1,14 +1,12 @@
 'use client'
 
-import Link from 'next/link'
 import { useCallback, useMemo, useState } from 'react'
 
-import { cn } from '@/lib/cn'
 import { Shop } from '@/types/shop'
 
-import { buttonVariants } from '../Button'
 import ScrollArea from '../ScrollArea'
 import { RatingRangeSlider } from './rating'
+import ShopItem from './shop-item'
 
 interface Props {
   shops: Shop[]
@@ -47,30 +45,9 @@ export default function ShopsSidebar({ shops, activeShop }: Props) {
       <ScrollArea className="flex-1 p-2">
         <nav className="space-y-3">
           {filteredShops.length > 0 ? (
-            filteredShops.map((item) => {
-              const isActive = activeShop === item.href
-              return (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  className={cn(
-                    buttonVariants({
-                      variant: isActive ? 'outline' : 'secondary',
-                      size: 'default',
-                      fullWidth: true,
-                      className:
-                        'flex h-20 flex-col items-start justify-center gap-1 border-2 px-4'
-                    })
-                  )}
-                >
-                  <span className="text-base font-semibold">{item.name}</span>
-                  <div className="flex items-center gap-1 text-xs font-medium text-orange-500">
-                    <span className="text-lg">★</span>
-                    {item.rating || 'N/A'}
-                  </div>
-                </Link>
-              )
-            })
+            filteredShops.map((item) => (
+              <ShopItem key={item.id} shop={item} activeShop={activeShop} />
+            ))
           ) : (
             <p className="py-10 text-center text-sm text-gray-400">
               No shops in this range

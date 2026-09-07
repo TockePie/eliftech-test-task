@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { ChangeEvent } from 'react'
 
 import { Button } from '@/components/Button'
-import { CartItem } from '@/store/useCartStore'
+import { CartItem } from '@/store/use-cart-store'
 
 interface Props {
   item: CartItem

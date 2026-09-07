@@ -23,6 +23,9 @@ export function RatingRangeSlider({
   const minPos = ((min - 1) / (5 - 1)) * 100
   const maxPos = ((max - 1) / (5 - 1)) * 100
 
+  const inputClasses =
+    'range-input pointer-events-none absolute top-1/2 w-full -translate-y-1/2 appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:bg-orange-600 [&::-webkit-slider-thumb]:shadow-md'
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
@@ -51,7 +54,7 @@ export function RatingRangeSlider({
           onChange={(e) =>
             setMin(Math.min(parseFloat(e.target.value), max - 0.1))
           }
-          className="range-input pointer-events-none absolute top-1/2 w-full -translate-y-1/2 appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:bg-orange-600 [&::-webkit-slider-thumb]:shadow-md"
+          className={inputClasses}
         />
 
         <input
@@ -63,7 +66,7 @@ export function RatingRangeSlider({
           onChange={(e) =>
             setMax(Math.max(parseFloat(e.target.value), min + 0.1))
           }
-          className="range-input pointer-events-none absolute top-1/2 w-full -translate-y-1/2 appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:bg-orange-600 [&::-webkit-slider-thumb]:shadow-md"
+          className={inputClasses}
         />
       </div>
     </div>
